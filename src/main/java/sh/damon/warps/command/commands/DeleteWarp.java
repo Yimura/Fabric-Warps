@@ -2,6 +2,7 @@ package sh.damon.warps.command.commands;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.command.ServerCommandSource;
@@ -11,13 +12,14 @@ import sh.damon.warps.Warps;
 import sh.damon.warps.command.BaseCommand;
 import sh.damon.warps.player.Player;
 
+import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 /**
  * This is an example command it implements BaseCommand.
  * Every command needs the below to methods to be present to work.
  */
-public class SetHome implements BaseCommand {
+public class DeleteWarp implements BaseCommand {
     /**
      * This method will be called to tell the server how your command works,
      * for more information on this you can read here https://fabricmc.net/wiki/tutorial:commands
@@ -25,7 +27,13 @@ public class SetHome implements BaseCommand {
     @Override
     public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
-            literal("sethome").executes(this)
+            literal("warp")
+                .then(literal("delete")
+                    .then(
+                        argument("name", StringArgumentType.word()
+                    ).executes(this)
+                )
+            )
         );
     }
 
@@ -40,7 +48,8 @@ public class SetHome implements BaseCommand {
         final Warps instance = Warps.getInstance();
         Player player = instance.playerManager.get(serverPlayerEntity);
 
-        source.sendFeedback(new LiteralText(player.warpData.setWarp("home") == null ? "Home set to current position." : "Your old home has been discarded, if you want to create more homes consider using /warp."), false);
+        final String warpName = StringArgumentType.getString(context, "name");
+        source.sendFeedback(new LiteralText(player.warpData.deleteWarp(warpName) ? String.format("Removed warp called '%s'", warpName) : String.format("There's no warp called '%s'.", warpName)), false);
 
         return Command.SINGLE_SUCCESS;
     }

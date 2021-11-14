@@ -17,7 +17,7 @@ import static net.minecraft.server.command.CommandManager.literal;
  * This is an example command it implements BaseCommand.
  * Every command needs the below to methods to be present to work.
  */
-public class SetHome implements BaseCommand {
+public class Home implements BaseCommand {
     /**
      * This method will be called to tell the server how your command works,
      * for more information on this you can read here https://fabricmc.net/wiki/tutorial:commands
@@ -25,7 +25,7 @@ public class SetHome implements BaseCommand {
     @Override
     public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
-            literal("sethome").executes(this)
+            literal("home").executes(this)
         );
     }
 
@@ -40,7 +40,8 @@ public class SetHome implements BaseCommand {
         final Warps instance = Warps.getInstance();
         Player player = instance.playerManager.get(serverPlayerEntity);
 
-        source.sendFeedback(new LiteralText(player.warpData.setWarp("home") == null ? "Home set to current position." : "Your old home has been discarded, if you want to create more homes consider using /warp."), false);
+        if (!player.warpData.gotoWarp("home"))
+            source.sendFeedback(new LiteralText("No home set, use /sethome to create one."), false);
 
         return Command.SINGLE_SUCCESS;
     }
