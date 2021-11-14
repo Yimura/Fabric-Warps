@@ -1,4 +1,4 @@
-package sh.damon.template.command;
+package sh.damon.warps.command;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
