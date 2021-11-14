@@ -1,29 +1,31 @@
-package sh.damon.template;
+package sh.damon.warps;
 
 import net.fabricmc.api.ModInitializer;
-import sh.damon.template.command.CommandManager;
-import sh.damon.template.util.Log;
+import sh.damon.warps.command.CommandManager;
+import sh.damon.warps.player.PlayerManager;
+import sh.damon.warps.util.Log;
 
-public class Template implements ModInitializer {
-	public static final String MOD_ID = "template";
-	public static final String MOD_NAME = "Template";
+public class Warps implements ModInitializer {
+	public static final String MOD_ID = "warp";
+	public static final String MOD_NAME = "Warps";
 
 	public final CommandManager commandManager = new CommandManager();
+	public final PlayerManager playerManager = new PlayerManager();
 
 	public static Log log = new Log(MOD_NAME);
 
-	private static Template instance;
+	private static Warps instance;
 
 	@Override
 	public void onInitialize() {
-		Template.instance = this;
+		Warps.instance = this;
 
 		this.commandManager.registerAll();
 
-		Template.log.info( "Mod is ready.");
+		Warps.log.info( "Mod is ready.");
 	}
 
-	public static Template getInstance() {
+	public static Warps getInstance() {
 		return instance;
 	}
 }
