@@ -1,9 +1,9 @@
-package sh.damon.template.mixin;
+package sh.damon.warps.mixin;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import sh.damon.template.Template;
+import sh.damon.warps.Warps;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,6 +23,6 @@ public abstract class CommandManagerMixin {
 
     @Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/CommandDispatcher;findAmbiguities(Lcom/mojang/brigadier/AmbiguityConsumer;)V"), method = "<init>")
     private void onCommandRegistry(CommandManager.RegistrationEnvironment environment, CallbackInfo ci) {
-        Template.getInstance().commandManager.register(this.dispatcher, environment == CommandManager.RegistrationEnvironment.DEDICATED);
+        Warps.getInstance().commandManager.register(this.dispatcher, environment == CommandManager.RegistrationEnvironment.DEDICATED);
     }
 }
