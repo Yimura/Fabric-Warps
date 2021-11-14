@@ -1,4 +1,4 @@
-package sh.damon.template.util;
+package sh.damon.warps.util;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
