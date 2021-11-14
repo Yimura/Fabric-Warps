@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "template",
+  "id": "warps",
   "version": "${version}",
 
-  "name": "Template",
+  "name": "Warps",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
     "Yimura"
@@ -19,11 +19,11 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "sh.damon.template.Template"
+      "sh.damon.warps.Warps"
     ]
   },
   "mixins": [
-    "template.mixins.json"
+    "mixins.json"
   ],
 
   "depends": {
