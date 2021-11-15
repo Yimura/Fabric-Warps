@@ -6,16 +6,16 @@ import sh.damon.warps.player.nbt.WarpData;
 
 public class Player {
     private ServerPlayerEntity serverPlayerEntity;
-    public WarpData warpData;
+    public WarpData warpData = new WarpData();
 
     public Player(ServerPlayerEntity serverPlayerEntity) {
         this.serverPlayerEntity = serverPlayerEntity;
-
-        this.warpData = new WarpData(serverPlayerEntity);
     }
 
     public void updateServerPlayerEntity(ServerPlayerEntity serverPlayerEntity) {
         this.serverPlayerEntity = serverPlayerEntity;
+
+        this.warpData.setServerPlayerEntity(serverPlayerEntity);
     }
 
     public void loadNbtData(NbtCompound nbt) {

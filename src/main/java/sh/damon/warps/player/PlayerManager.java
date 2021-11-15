@@ -13,17 +13,18 @@ public class PlayerManager {
     }
 
     public Player get(ServerPlayerEntity serverPlayerEntity) {
+        final UUID id = serverPlayerEntity.getUuid();
         Player player;
 
-        if (this.players.containsKey(serverPlayerEntity.getUuid())) {
-            player = this.players.get(serverPlayerEntity.getUuid());
+        if (this.players.containsKey(id)) {
+            player = this.players.get(id);
 
             player.updateServerPlayerEntity(serverPlayerEntity);
         }
         else {
             player = new Player(serverPlayerEntity);
 
-            this.players.put(serverPlayerEntity.getUuid(), player);
+            this.players.put(id, player);
         }
 
         return player;

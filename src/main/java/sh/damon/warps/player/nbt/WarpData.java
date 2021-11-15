@@ -18,13 +18,9 @@ import java.util.Set;
 
 public class WarpData implements NbtContainer {
     private final String NBT_TAG = "WARP_DATA";
-    private final ServerPlayerEntity serverPlayerEntity;
+    private ServerPlayerEntity serverPlayerEntity;
 
     private HashMap<String, WarpLocation> warps = new HashMap<>();
-
-    public WarpData(ServerPlayerEntity serverPlayerEntity) {
-        this.serverPlayerEntity = serverPlayerEntity;
-    }
 
     public Set<String> getWarpList() {
         return this.warps.keySet();
@@ -41,6 +37,10 @@ public class WarpData implements NbtContainer {
         warp.teleport(this.serverPlayerEntity);
 
         return true;
+    }
+
+    public void setServerPlayerEntity(ServerPlayerEntity serverPlayerEntity) {
+        this.serverPlayerEntity = serverPlayerEntity;
     }
 
     /**
